@@ -20,6 +20,6 @@ springbootjpa
 ## 注意事项 ##
 - jdk1.8
 - spring boot 1.4.1
-- 127.0.0.1:8080/进入
+- 127.0.0.1:8080/demo/findAll进入
 - 因为设置了Actuator 访问需要账号密码  账号：admin 密码：123456
 - 数据库mysql
