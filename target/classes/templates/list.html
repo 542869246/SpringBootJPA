@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<!–suppress ALL –>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Title</title>
+    <script type="text/javascript" th:src="@{/js/jquery-1.9.1.min.js}"></script>
+    <style>
+        .progress {
+            position: relative;
+            width: 400px;
+            border: 1px solid #ddd;
+            padding: 1px;
+            border-radius: 3px;
+        }
+
+        .bar {
+            background-color: #B4F5B4;
+            width: 0%;
+            height: 20px;
+            border-radius: 3px;
+        }
+
+        .percent {
+            position: absolute;
+            display: inline-block;
+            top: 1px;
+            left: 45%;
+        }
+    </style>
+</head>
+<body>
+
+<p th:text="${msg}">q</p>
+<p th:text="${msgs}">q</p>
+<a href="/demo/goAdd">新增</a>
+
+<form method="POST" action="/demo/upload" enctype="multipart/form-data" id="data_upload_form">
+    <input type="file" name="file"/><br/>
+    <input type="file" name="file"/><br/>
+    <input type="file" name="file"/><br/>
+    <input type="file" name="file"/><br/>
+    <div id="d">存入缓存的进度：</div>
+
+    <div style="background:#848484;width:150px;height:20px;margin-top:5px;" id="progress1">
+        <div id="progressNumber" style="background:#428bca;width:0px;height:20px;">
+        </div>
+    </div>
+    <span id="percent">0%</span><br/>
+
+    <div class="progress">
+        <div class="bar"></div>
+        <div class="percent">0%</div>
+    </div>
+    <input type="submit" value="Submit" id="data_upload_button"/>
+</form>
+<a th:href="${'download'}">下载</a>
+<span id="download">下载</span>
+<table border="1" cellpadding="7" cellspacing="0">
+    <tr align="center">
+        <td>id</td>
+        <td>编号</td>
+        <td>书名</td>
+        <td>类型</td>
+        <td>作者</td>
+        <td>出版社</td>
+        <td>发布日期</td>
+        <td>创作者</td>
+        <td>创建日期</td>
+        <td>最后更新日期</td>
+        <td>操作</td>
+    </tr>
+    <tr th:each="item,stat : ${list}" align="center">
+        <td th:text="${item.book_id}"></td>
+        <td th:text="${item.book_code}"></td>
+        <td th:text="${item.book_name}"></td>
+        <td th:text="${item.book_type}"></td>
+        <td th:text="${item.book_atuthor}"></td>
+        <td th:text="${item.publish_press}"></td>
+        <td
+                th:text="${#dates.format(item.publish_date,'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td th:text="${item.createdBy}"></td>
+        <td
+                th:text="${#dates.format(item.creation_time,'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td
+                th:text="${#dates.format(item.last_updatetime,'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td><a th:href="@{findOne/{id}(id=${item.book_id})}">修改</a>
+            <a th:href="${'del/?id=' + item.book_id}">删除</a></td>
+    </tr>
+</table>
+</body>
+<script>
+
+    $(function () {
+        function uploadProgress(evt) {
+
+            if (evt.lengthComputable) {
+                //evt.loaded：文件上传的大小   evt.total：文件总的大小
+                var percentComplete = (evt.loaded) * 100 / evt.total
+                var len1 = $('#progress1').css('width')
+                var len2 = $('.progress').css('width')
+                //加载进度条，同时显示信息
+                $("#percent").html(percentComplete.toFixed(2) + '%')
+                $(".percent").html(percentComplete.toFixed(2) + '%')
+                $("#progressNumber").css("width", "" + (parseInt(len1) * percentComplete * 0.01) + "px")
+                $(".bar").css("width", "" + (parseInt(len2) * percentComplete * 0.01) + "px")
+
+            }
+        }
+
+        var xhrOnProgress = function (fun) {
+            xhrOnProgress.onprogress = fun //绑定监听
+            //使用闭包实现监听绑
+            return function () {
+                //通过$.ajaxSettings.xhr()获得XMLHttpRequest对象
+                var xhr = $.ajaxSettings.xhr()
+                //判断监听函数是否为函数
+                if (typeof xhrOnProgress.onprogress !== 'function')
+                    return xhr
+                //如果有监听函数并且xhr对象支持绑定时就把监听函数绑定上去
+                if (xhrOnProgress.onprogress && xhr.upload) {
+                    xhr.upload.onprogress = xhrOnProgress.onprogress
+                }
+                return xhr
+            }
+        }
+
+        $("#data_upload_button").click(function (event) {
+            event.preventDefault()
+            var xhr = new XMLHttpRequest()
+            if (window.FormData) {
+
+                var formData = new FormData($("#data_upload_form")[0])
+                //监听事件
+                xhr.upload.addEventListener("progress", uploadProgress, false)
+                //发送文件和表单自定义参数
+                // xhr.open("POST", "/demo/upload", true)
+                // xhr.send(formData)
+
+                $.ajax({
+                    type: "POST",
+                    url: "/demo/upload",
+                    dataType: "text",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    xhr: xhrOnProgress(function (e) {
+                        uploadProgress(e)
+                    })
+                }).done(function (data) {
+                    alert("上传成功")
+
+                }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("上传失败")
+                })
+            } else {
+                alert("不支持")
+            }
+        })
+
+        $('#download').click(function (event) {
+            event.preventDefault()
+            //构造表单数据
+            var formData = new FormData()
+            formData.append('username', 'johndoe')
+            formData.append('id', 123456)
+            //创建xhr对象
+            var xhr = new XMLHttpRequest()
+            //设置xhr请求的超时时间 默认值：0，即不设置超时
+            xhr.timeout = 0
+            //设置响应返回的数据格式
+            xhr.responseType = "blob"
+
+            xhr.onprogress = uploadProgress
+
+            //创建一个 post 请求，采用异步
+            xhr.open('GET', '/demo/download', true)
+
+            //注册相关事件回调处理函数
+            xhr.onload = function (xhrr, e) {
+                if (this.status == 200 || this.status == 304) {
+                    var blob = this.response
+                    //获取请求头内容
+                    var fileName = xhr.getResponseHeader("fileName")
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = fileName;
+                    link.click();
+                    setTimeout(function () {
+                        alert('下载完成!')
+                    }, 500)
+                }
+            }
+            //发送数据
+            xhr.send(formData)
+
+        })
+    })
+</script>
+</html>

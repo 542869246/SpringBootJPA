@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="booksSystem@localhost" uuid="f0d56adb-905a-4e20-88de-9160da7a2eff">
+      <database-info product="MySQL" version="5.5.56" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.45 ( Revision: 9131eefa398531c7dc98776e8a3fe839e544c5b2 )">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <introspection-schemas>*:*</introspection-schemas>
+    </data-source>
+    <data-source name="oracle@127.0.0.1" uuid="6d75b31c-c939-46dd-97b7-04f644f53fa1">
+      <database-info product="Oracle" version="Oracle Database 11g Enterprise Edition Release 11.1.0.6.0 - Production&#10;With the Partitioning, OLAP, Data Mining and Real Application Testing options" jdbc-version="4.0" driver-name="Oracle JDBC driver" driver-version="12.1.0.2.0">
+        <extra-name-characters>$#</extra-name-characters>
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>system</user-name>
+      <introspection-schemas>*:*</introspection-schemas>
+    </data-source>
+    <data-source name="12306DB@localhost" uuid="46f1cdd3-e14b-4b01-b877-f5dbd5e7b246">
+      <database-info product="Microsoft SQL Server" version="10.50.1600" jdbc-version="4.2" driver-name="Microsoft JDBC Driver 6.0 for SQL Server" driver-version="6.0.8112.100">
+        <extra-name-characters>$#@</extra-name-characters>
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
+      <secret-storage>master_key</secret-storage>
+      <domain-auth>true</domain-auth>
+      <user-name>bdqn</user-name>
+      <introspection-schemas>*:*|12306DB:|BoardScheduleManager:|BoardroomManager:|BookManagement:|BranchesMgr:|Contacts\u0020Sys:|E-Market:|Employee:|EmployeeSys:|FinancingProduct:|FootballScheduleManager:|Hotel:|HotelManageEx:|House:|Ktv:|Library:|MyBankDB1.0:|MyKTV1.0:|MyQuestionBank:|MySchool:|Netbar:|NewsManagerSystem:|OrganizationDB:|PaperDB:|QQDataBase:|QQMaster:|RecordManagerDB:|ReportServer:|ReportServerTempDB:|ResourceManageSys:|Student:|SuperMark:|TrainOfChina:|Wonderland:|assetsDB:|bankDB:|boardroom:|easybuy:|epet:|fruit:|hrinfo:|master:|model:|msdb:|tempdb:</introspection-schemas>
+    </data-source>
+  </component>
+</project>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Title</title>
+</head>
+<body>
+<p th:text="${msg}">q</p>
+<form action="/demo/update" method="post" th:object="${bookInfo}">
+    <table border="1" cellpadding="7" cellspacing="0">
+        <tr align="center" style="display: none">
+            <td>id</td>
+            <td>
+                <input type="text" name="book_id"  th:field="*{book_id}"/>
+            </td>
+        </tr>
+        <tr  align="center">
+            <td>编号</td>
+            <td>
+                <input type="text" name="book_code" th:field="*{book_code}"/>
+            </td>
+        </tr>
+        <tr align="center">
+            <td>书名</td>
+            <td>
+                <input type="text" name="book_name" th:value="${bookInfo.book_name}"/>
+            </td>
+        </tr>
+        <tr align="center">
+            <td>类型</td>
+            <td align="left">
+                <select  name="book_type">
+                    <option >--请选择--</option>
+                    <option value="1"  th:selected="${bookInfo.book_type eq 1}">类型1</option>
+                    <option value="2"  th:selected="${bookInfo.book_type eq 2}">类型2</option>
+                    <option value="3"  th:selected="${bookInfo.book_type eq 3}">类型3</option>
+                    <option value="4"  th:selected="${bookInfo.book_type eq 4}">类型4</option>
+                    <option value="5"  th:selected="${bookInfo.book_type eq 5}">类型5</option>
+                </select>
+            </td>
+        </tr>
+        <tr align="center">
+            <td>作者</td>
+            <td>
+                <input type="text" name="book_atuthor" th:value="${bookInfo.book_atuthor}"/>
+            </td>
+        </tr>
+        <tr align="center">
+            <td>出版社</td>
+            <td>
+                <input type="text" name="publish_press" th:value="${bookInfo.publish_press}"/>
+            </td>
+        </tr>
+        <tr align="center">
+            <td>发布日期</td>
+            <td>
+                <input type="text" name="publish_date" th:value="${bookInfo.publish_date}"/>
+            </td>
+        </tr>
+        <tr align="center">
+            <td>是否借出</td>
+            <td align="left">
+                <select name="is_borrow">
+                    <option value="">--请选择--</option>
+                    <option value="0" th:selected="${bookInfo.book_type eq 0}">未借</option>
+                    <option value="1" th:selected="${bookInfo.book_type eq 1}">已借</option>
+                </select>
+            </td>
+        </tr>
+        <tr align="center">
+            <td>创作者</td>
+            <td>
+                <input type="text" name="createdBy" th:value="${bookInfo.createdBy}"/>
+            </td>
+        </tr>
+        <tr align="center">
+            <td>创建日期</td>
+            <td>
+                <input type="text" name="creation_time" th:value="${bookInfo.creation_time}"/>
+            </td>
+        </tr>
+        <tr align="center">
+            <td>最后更新日期</td>
+            <td>
+                <input type="text" name="last_updatetime" th:value="${bookInfo.last_updatetime}"/>
+            </td>
+        </tr>
+        <tr align="center">
+            <td colspan="2">
+                <input type="submit" value="提交"/>
+                <button><a th:href="@{/demo/findAll}" style="color: black;text-decoration: none;'">返回</a></button>
+            </td>
+        </tr>
+
+
+        <!-- <tr th:each="item,stat : ${list}" align="center">
+             <td th:text="${item.book_id}"></td>
+             <td th:text="${item.book_code}"></td>
+             <td th:text="${item.book_name}"></td>
+             <td th:text="${item.book_type}"></td>
+             <td th:text="${item.book_atuthor}"></td>
+             <td th:text="${item.publish_press}"></td>
+             <td
+                     th:text="${$dates.format(item.publish_date,'yyyy-MM-dd HH:mm:ss')}"></td>
+             <td th:text="${item.createdBy}"></td>
+             <td
+                     th:text="${$dates.format(item.creation_time,'yyyy-MM-dd HH:mm:ss')}"></td>
+             <td
+                     th:text="${$dates.format(item.last_updatetime,'yyyy-MM-dd HH:mm:ss')}"></td>
+             <td><a th:href="@{/findOne/{id}(id=${item.book_id})}">修改</a>
+                 <a th:href="${'del/?id=' + item.book_id}">删除</a></td>
+         </tr>-->
+    </table>
+</form>
+</body>
+</html>
