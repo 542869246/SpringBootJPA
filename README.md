@@ -23,4 +23,3 @@ springbootjpa
 - 127.0.0.1:8080/进入
 - 因为设置了Actuator 访问需要账号密码  账号：admin 密码：123456
 - 数据库mysql
-- 
