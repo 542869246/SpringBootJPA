@@ -1,8 +1,6 @@
 # SpringBootJPA
 springbootjpa
 
-----------
-
 # 说明
 使用spring boot+jpa+thymeleaf+mysql做的增删改查小玩具
 
