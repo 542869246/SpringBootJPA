@@ -12,6 +12,7 @@ springbootjpa
 - swagger
 - Jenkins部署
 - Spring Boot Actuator监控应用
+- 整合Druid
 - 上传下载
 
 
@@ -19,7 +20,8 @@ springbootjpa
 - jdk1.8
 - spring boot 1.4.1
 - 127.0.0.1:8080/demo/findAll进入
-- 因为设置了Actuator 访问需要账号密码  账号：admin 密码：123456
+- 127.0.0.1:8088/monitor进入Actuator  账号：admin 密码：123456
+- 127.0.0.1:8080/druid进入Druid页面   账号：druid 密码：123456
 - 数据库mysql
 
 
